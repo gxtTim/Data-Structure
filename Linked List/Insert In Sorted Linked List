@@ -1,0 +1,36 @@
+/*** Insert a value in a sorted linked list. ***/
+
+/**
+ * class ListNode {
+ *   public int value;
+ *   public ListNode next;
+ *   public ListNode(int value) {
+ *     this.value = value;
+ *     next = null;
+ *   }
+ * }
+ */
+public class Solution {
+  public ListNode insert(ListNode head, int value) {
+    // Time: O(n), Space: O(1)
+    ListNode newNode = new ListNode(value);
+    if (head == null || head.value > value) {
+      newNode.next = head;
+      return newNode;
+    }
+    ListNode prev = head;
+    ListNode curr = head.next;
+    
+    while (curr != null) {
+      if (value < curr.value) {
+        prev.next = newNode;
+        newNode.next = curr;
+        return head;
+      }
+      prev = curr;
+      curr = curr.next;
+    }
+    prev.next = newNode;
+    return head;
+  }
+}
