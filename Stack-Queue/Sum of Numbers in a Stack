@@ -1,0 +1,13 @@
+/*** Calculate the sum of all numbers in a Stack. Assumption: The Stack is not null or empty. ***/
+
+class Solution {
+	public int sumOfStack(Deque<Integer> stack) {
+	    //Time: O(n), Space: O(1)
+	    if (stack.isEmpty()) return 0;
+	    int sum = 0;
+	    while (!stack.isEmpty()) {
+	      sum += stack.pop();
+	    }
+	    return sum;
+	}
+}
