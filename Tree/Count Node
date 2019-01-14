@@ -1,0 +1,19 @@
+/*** Find the number of tree nodes. ***/
+
+/**
+ * public class TreeNode {
+ *   public int key;
+ *   public TreeNode left;
+ *   public TreeNode right;
+ *   public TreeNode(int key) {
+ *     this.key = key;
+ *   }
+ * }
+ */
+public class Solution {
+  //Time:O(n), Space:O(h),worst O(n), average O(log(n))
+  public int countNodes(TreeNode root) {
+    if (root == null) return 0;
+    return 1 + countNodes(root.left) + countNodes(root.right);
+  }
+}
