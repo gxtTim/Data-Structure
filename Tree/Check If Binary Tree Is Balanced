@@ -1,0 +1,29 @@
+/*** Check if a given binary tree is balanced. A balanced binary tree is one in which the depths of every node’s left and 
+* right subtree differ by at most 1. ***/
+
+/**
+ * public class TreeNode {
+ *   public int key;
+ *   public TreeNode left;
+ *   public TreeNode right;
+ *   public TreeNode(int key) {
+ *     this.key = key;
+ *   }
+ * }
+ */
+public class Solution {
+  //Time:O(n), Space:O(h), worst O(n), average o(log(n))
+  public boolean isBalanced(TreeNode root) {
+    if (root == null) return true;
+    if (helper(root) >= 0) return true;
+    else return false;
+  }
+  public int helper(TreeNode root) {
+    if (root == null) return 0;
+    int left = helper(root.left);
+    int right = helper(root.right);
+    if (left < 0 || right < 0) return -1;
+    if (Math.abs(left - right) > 1) return -1;
+    return 1 + Math.max(left,right);
+  }
+}
