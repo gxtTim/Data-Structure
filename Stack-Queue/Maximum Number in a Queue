@@ -1,0 +1,16 @@
+/*** Given a queue of integers, find the maximum number in it. Assumption: the queue is not null or empty. ***/
+
+class Solution {
+	public int maxInQueue(Queue<Integer> queue) {
+    //Time: O(n), Space: O(1)
+    if (queue.isEmpty()) return 0;
+    int result = Integer.MIN_VALUE;
+    while (!queue.isEmpty()) {
+      int tmp = queue.poll();
+      if (tmp >= result) {
+        result = tmp;
+      }
+    }
+    return result;
+	}
+}
