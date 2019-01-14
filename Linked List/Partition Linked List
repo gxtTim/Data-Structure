@@ -1,0 +1,42 @@
+/*** Given a linked list and a target value T, partition it such that all nodes less than T are listed before the nodes larger than or equal to target value T. 
+* The original relative order of the nodes in each of the two partitions should be preserved.***/
+
+/**
+ * class ListNode {
+ *   public int value;
+ *   public ListNode next;
+ *   public ListNode(int value) {
+ *     this.value = value;
+ *     next = null;
+ *   }
+ * }
+ */
+public class Solution {
+  public ListNode partition(ListNode head, int target) {
+    // Time: O(n), Space: O(1)
+    if (head == null || head.next == null) {
+      return head;
+    }
+    ListNode small = new ListNode(0);
+    ListNode large = new ListNode(0);
+    
+    ListNode c = head;
+    ListNode c1 = small;
+    ListNode c2 = large;
+    
+    while (c != null) {
+      if (c.value < target) {
+        c1.next = c;
+        c1 = c1.next;
+        c = c.next;
+      } else {
+        c2.next = c;
+        c2 = c2.next;
+        c = c.next;
+      }
+    }
+    c1.next = large.next;
+    c2.next = null;
+    return small.next;
+  }
+}
