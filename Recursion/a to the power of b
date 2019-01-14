@@ -1,0 +1,10 @@
+/*** Evaluate a to the power of b, assuming both a and b are integers and b is non-negative. ***/
+public class Solution {
+  public long power(int a, int b) {
+    // Time:O(log(b)), Space: O(log(b))
+    if (b == 0) return 1;
+    long tmp = power(a, b/2);
+    if (b % 2 == 0) return tmp * tmp;
+    else return tmp * tmp * a;
+  }
+}
