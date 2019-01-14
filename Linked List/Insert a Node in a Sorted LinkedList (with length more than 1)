@@ -1,0 +1,33 @@
+/*** Insert a value in a sorted linked list. 
+* Assumption: length > 1,  first node value <= inserting node value <= last node value ***/
+
+/**
+ * class ListNode {
+ *   public int value;
+ *   public ListNode next;
+ *   public ListNode(int value) {
+ *     this.value = value;
+ *     next = null;
+ *   }
+ * }
+ */
+public class Solution {
+  public ListNode insertNode(ListNode head, int target) {
+    // Time: O(n), Space: O(1)
+    ListNode newNode = new ListNode(target);
+    ListNode prev = head;
+    ListNode curr = head.next;
+    while (curr != null) {
+      if (curr.value > target) {
+        prev.next = newNode;
+        newNode.next = curr;
+        return head;
+      }
+      prev = curr;
+      curr = curr.next;
+    }
+    prev.next = newNode;
+    newNode.next = null;
+    return head;
+  }
+}
