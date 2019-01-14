@@ -1,0 +1,10 @@
+/*** Given a matrix, find the Kth index element. ***/
+
+public class Solution {
+  //Time: O(1), Space: O(1)
+  public int findElement(int[][] matrix, int k) {
+    if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return -1;
+    int m = matrix.length, n = matrix[0].length;
+    return matrix[k/n][k%n];
+  }
+}
