@@ -1,0 +1,24 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    //Time: O(n), Space: O(h), worst O(n), average O(log(n))
+    public boolean isUnivalTree(TreeNode root) {
+        //1) Sub: node == root.val
+        //2) Rule: isUnivalTree(node.left) && isUnivalTree(node.right)
+        //3) Base: root == null
+        if (root == null) return true;
+        return helper(root, root.val);
+    }
+    private boolean helper(TreeNode root, int target) {
+        if (root == null) return true;
+        if (root.val != target) return false;
+        return helper(root.left, target) && helper(root.right, target);
+    }
+}
