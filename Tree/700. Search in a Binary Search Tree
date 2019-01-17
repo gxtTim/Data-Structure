@@ -11,14 +11,8 @@ class Solution {
     //Time:O(n), Space:O(h), worst O(n), average O(log(n))
     public TreeNode searchBST(TreeNode root, int val) {
         if (root == null) return null;
-        TreeNode[] res = new TreeNode[1];
-        searchBST(root, val, res);
-        return res[0];
-    }
-    private void searchBST(TreeNode root, int val, TreeNode[] res) {
-        if (root == null) return;
-        if (root.val == val) res[0] = root;
-        searchBST(root.left, val, res);
-        searchBST(root.right, val, res);
+        if (root.val == val) return root;
+        else if (root.val > val) return searchBST(root.left, val);
+        else return searchBST(root.right, val);
     }
 }
