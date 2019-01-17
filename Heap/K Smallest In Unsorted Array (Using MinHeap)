@@ -1,0 +1,22 @@
+/*** Find the K smallest numbers in an unsorted integer array A. 
+* The returned numbers should be in ascending order. ***/
+
+public class Solution {
+  public int[] kSmallest(int[] array, int k) {
+    int[] res = new int[k];
+    if (array == null) return res;
+    
+    // minHeap Time: O(n + k * log(n)), Space: O(n)
+    List<Integer> list = new ArrayList<>();
+    //O(n)
+    for (int a : array) {
+      list.add(a);
+    }
+    Queue<Integer> minHeap = new PriorityQueue<>(list);
+    //O(k * log(n))
+    for (int i = 0; i < k; i++){
+      res[i] = minHeap.poll();
+    }
+    return res; 
+  }
+}
