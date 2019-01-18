@@ -1,0 +1,17 @@
+class Solution {
+    //Time: O(n * log(n)), Space: O(n)
+    public int findKthLargest(int[] nums, int k) {
+        if (nums == null) return 0;
+        if (k < 1) return 0;
+        Queue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        // n * log(n)
+        for (int i = 0; i < nums.length; i++) {
+            maxHeap.offer(nums[i]);
+        }
+        // (k - 1) * log(k)
+        for (int i = 0; i < k - 1; i++) {
+            maxHeap.poll();
+        }
+        return maxHeap.poll();
+    }
+}
