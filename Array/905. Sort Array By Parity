@@ -1,0 +1,21 @@
+class Solution {
+    //Time: O(n), Space: O(1)
+    public int[] sortArrayByParity(int[] A) {
+        if (A == null) return A;
+        int i = 0, k = A.length - 1;
+        while (i < k ) {
+            if (A[i] % 2 == 0) i++;
+            else {
+                swap(A, i, k);
+                k--;
+            }
+        }
+        return A;
+    }
+    private void swap(int[] array, int a, int b) {
+        if (array == null) return;
+        int tmp = array[a];
+        array[a] = array[b];
+        array[b] = tmp;
+    }
+}
