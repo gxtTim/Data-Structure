@@ -1,0 +1,24 @@
+class Solution {
+    //Time: O(m + n), Space: O(m + n)
+    public String[] uncommonFromSentences(String A, String B) {
+        List<String> res = new ArrayList<>();
+        if (A == null && B == null) return res.toArray(new String[0]);
+        String[] splitA = A.split("\\s+");
+        String[] splitB = B.split("\\s+");
+        
+        Map<String, Integer> map = new HashMap<>();
+        for (String s : splitA) {
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+        for (String s : splitB) {
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+        for (String s: splitA) {
+            if (map.get(s) == 1) res.add(s);
+        }
+        for (String s: splitB) {
+            if (map.get(s) == 1) res.add(s);
+        }
+        return res.toArray(new String[0]);
+    }
+}
