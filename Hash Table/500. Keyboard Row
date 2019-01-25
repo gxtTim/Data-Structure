@@ -1,0 +1,45 @@
+class Solution {
+    //Time: O(n^2), Space: O(n)
+    public String[] findWords(String[] words) {
+        if (words == null) return words;
+        char[] s1 = {'Q','W','E','R','T','Y','U','I','O','P'};
+        char[] s2 = {'A','S','D','F','G','H','J','K','L'};
+        char[] s3 = {'Z','X','C','V','B','N','M'};
+        
+        
+        Set<Character> set1 = new HashSet<>();
+        Set<Character> set2 = new HashSet<>();
+        Set<Character> set3 = new HashSet<>();
+        
+        for (char s : s1) set1.add(s);
+        for (char s : s2) set2.add(s);
+        for (char s : s3) set3.add(s);
+
+        List<String> res = new ArrayList<>();
+        
+        for (String word : words) {
+            int count = 0;
+            for (int i = 0; i < word.length(); i++) {
+                if (set1.contains(Character.toUpperCase(word.charAt(i)))) count++;
+            }
+            if (count == word.length()) res.add(word);
+        }
+        
+        for (String word : words) {
+            int count = 0;
+            for (int i = 0; i < word.length(); i++) {
+                if (set2.contains(Character.toUpperCase(word.charAt(i)))) count++;
+            }
+            if (count == word.length()) res.add(word);
+        }
+        for (String word : words) {
+            int count = 0;
+            for (int i = 0; i < word.length(); i++) {
+                if (set3.contains(Character.toUpperCase(word.charAt(i)))) count++;
+            }
+            if (count == word.length()) res.add(word);
+        }
+ 
+        return res.toArray(new String[0]);       
+    }
+}
