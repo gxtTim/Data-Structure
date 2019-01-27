@@ -1,0 +1,38 @@
+/*** Find all numbers that appear in both of two sorted arrays (the two arrays are all sorted in ascending order).
+*    Assumptions
+* In each of the two sorted arrays, there could be duplicate numbers.
+* Both two arrays are not null.
+*    Examples
+* A = {1, 1, 2, 2, 3}, B = {1, 1, 2, 5, 6}, common numbers are [1, 1, 2] ***/
+
+public class Solution {
+  //Time: O(m * n), Space: O(m + n)
+  public List<Integer> common(List<Integer> A, List<Integer> B) {
+    if (A == null || A.size() == 0 || B == null || B.size() == 0) {
+      return new ArrayList<Integer>();
+    }
+    int m = A.size(), n = B.size();
+    Map<Integer, Integer> mapA = new HashMap<>();
+    Map<Integer, Integer> mapB = new HashMap<>();
+    
+    makeMap(A, mapA);
+    makeMap(B, mapB);
+
+    List<Integer> list = new ArrayList<>();
+    for (Map.Entry<Integer, Integer> entry : mapB.entrySet()) {
+      if (mapA.containsKey(entry.getKey())){
+        for (int i = 0; i < Math.min(entry.getValue(), mapA.get(entry.getKey())); 
+             i++) {
+          list.add(entry.getKey());
+        }
+      }
+    }
+    return list;   
+  }
+  private void makeMap(List<Integer> list, Map<Integer, Integer> map) {
+    if (list == null) return;
+    for (Integer l : list) {
+      map.put(l, map.getOrDefault(l,0) + 1);
+    }
+  }
+}
