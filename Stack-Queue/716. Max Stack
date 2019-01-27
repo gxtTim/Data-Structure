@@ -1,0 +1,51 @@
+class MaxStack {
+    //Time: O(n) for popMax, O(1) for others, Space: O(n)
+    private Deque<Integer> stack;
+    private Deque<Integer> max;
+    private Deque<Integer> tmp;
+    /** initialize your data structure here. */
+    public MaxStack() {
+        stack = new LinkedList<>();
+        max = new LinkedList<>();
+        tmp = new LinkedList<>();
+    }
+    
+    public void push(int x) {
+        stack.push(x);
+        if (max.isEmpty() || x >= max.peek()) max.push(x);
+        if (x < max.peek()) max.push(max.peek());
+    }
+    
+    public int pop() {
+        int res = stack.pop();
+        max.pop();
+        return res;
+    }
+    
+    public int top() {
+        return stack.peek();
+    }
+    
+    public int peekMax() {
+        return max.peek();
+    }
+    
+    //Time: O(n)
+    public int popMax() {
+        int max = peekMax();
+        while (top() != max) tmp.push(pop());
+        pop();
+        while (!tmp.isEmpty()) push(tmp.pop());
+        return max;
+    }
+}
+
+/**
+ * Your MaxStack object will be instantiated and called as such:
+ * MaxStack obj = new MaxStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.peekMax();
+ * int param_5 = obj.popMax();
+ */
