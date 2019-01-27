@@ -1,0 +1,12 @@
+class Solution {
+    //Time: O(n), Space: O(1)
+    public int missingNumber(int[] nums) {
+        if (nums == null  || nums.length == 0) return 0;
+        int n = nums.length, curr = 0;
+        int sum = n * (n + 1)/2;
+        for (int num : nums) {
+            curr += num;
+        }
+        return sum - curr;
+    }
+}
