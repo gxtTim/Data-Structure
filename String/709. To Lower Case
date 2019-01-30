@@ -1,0 +1,7 @@
+class Solution {
+    //Time: O(1), Space: O(1)
+    public String toLowerCase(String str) {
+        if (str == null || str.length() == 0) return "";
+        return str.toLowerCase();
+    }
+}
