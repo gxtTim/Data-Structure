@@ -1,0 +1,32 @@
+class Solution {
+    public String reverseVowels(String s) {
+        //Time: O(n), Space: O(n)
+        int i = 0, j = s.length() - 1;
+        char[] ch = s.toCharArray();
+        while (i < j) {
+            if (Character.toLowerCase(ch[i]) != 'a' && 
+                Character.toLowerCase(ch[i]) != 'e' &&
+                Character.toLowerCase(ch[i]) != 'i' &&
+                Character.toLowerCase(ch[i]) != 'o' && 
+                Character.toLowerCase(ch[i]) != 'u') {
+                i++;
+            }
+            else if (Character.toLowerCase(ch[j]) == 'a' ||
+                     Character.toLowerCase(ch[j]) == 'e' || 
+                     Character.toLowerCase(ch[j]) == 'i' ||
+                     Character.toLowerCase(ch[j]) == 'o' || 
+                     Character.toLowerCase(ch[j]) == 'u') {
+                swap(ch, i, j);
+                i++;
+                j--;
+            }
+            else j--;
+        }
+        return new String(ch);
+    }
+    private void swap(char[] ch, int a, int b) {
+        char tmp = ch[a];
+        ch[a] = ch[b];
+        ch[b] = tmp;
+    }
+}
