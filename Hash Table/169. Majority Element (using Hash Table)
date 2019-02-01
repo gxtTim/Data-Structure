@@ -1,0 +1,15 @@
+class Solution {
+    //Time:O(n), Space: O(n)
+    public int majorityElement(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        int target = 0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > nums.length / 2) target = entry.getKey();
+        }
+        return target;
+    }
+}
