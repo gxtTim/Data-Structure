@@ -1,0 +1,31 @@
+/*** Given a string, remove all leading/trailing/duplicated empty spaces.
+* Assumptions:
+* The given string is not null.
+* Examples:
+* “  a” --> “a”
+* “   I     love MTV ” --> “I love MTV” ***/
+
+public class Solution {
+  //Time: O(n), Space: O(n)
+  public String removeSpaces(String input) {
+    StringBuilder str = new StringBuilder(input);
+    int i = 0;
+    for (int j = 0; j < str.length(); j++) {
+      if (str.charAt(j) != ' ') {
+        str.setCharAt(i, str.charAt(j));
+        i++;
+      } else {
+        //case1: i == 0, leading space, ignore
+        //case2: A[j] == ' ', A[i - 1] != ' ', keep
+        //case3: A[j] == ' ', A[i - 1] == ' ', ignore
+        if (i > 0 && str.charAt(i - 1) != ' ') {
+          str.setCharAt(i, ' ');
+          i++;
+        }
+      }
+    }
+    if (i > 0 && str.charAt(i - 1) == ' ') i--;
+    str.delete(i, input.length());
+    return str.toString();
+  }
+}
