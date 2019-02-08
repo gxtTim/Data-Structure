@@ -13,15 +13,9 @@ public class Solution {
     StringBuilder str = new StringBuilder(input);
     int i = 0;
     for (int j = 0; j < str.length(); j++) {
-      if (j == 0) {
+      if (j == 0 || str.charAt(j) != str.charAt(i - 1)) {
         str.setCharAt(i, str.charAt(j));
         i++;
-      }
-      else {
-        if (str.charAt(j) != str.charAt(i - 1)) {
-          str.setCharAt(i, str.charAt(j));
-          i++;
-        }
       }
     }
     str.delete(i, str.length());
