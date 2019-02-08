@@ -1,0 +1,30 @@
+/*** Remove adjacent, repeated characters in a given string, leaving only one character for each group of such characters.
+* Assumptions
+* Try to do it in place.
+* Examples
+* “aaaabbbc” is transferred to “abc”
+* Corner Cases
+* If the given string is null, we do not need to do anything. ***/
+
+public class Solution {
+  //Time: O(n), Space: O(n)
+  public String deDup(String input) {
+    if (input == null || input.length() == 0) return input;
+    StringBuilder str = new StringBuilder(input);
+    int i = 0;
+    for (int j = 0; j < str.length(); j++) {
+      if (j == 0) {
+        str.setCharAt(i, str.charAt(j));
+        i++;
+      }
+      else {
+        if (str.charAt(j) != str.charAt(i - 1)) {
+          str.setCharAt(i, str.charAt(j));
+          i++;
+        }
+      }
+    }
+    str.delete(i, str.length());
+    return str.toString();
+  }
+}
