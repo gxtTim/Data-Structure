@@ -10,16 +10,17 @@ public class Solution {
     if (input == null || input.length() <= 1) return input;
     Stack<Character> stack = new Stack<>();
     stack.push(input.charAt(0));
-    for (int j = 1; j < input.length(); j++) {
-      if (stack.isEmpty()) {
-        stack.push(input.charAt(j));
-      }
-      else if (!stack.isEmpty() && input.charAt(j) != stack.peek()) {
-        stack.push(input.charAt(j));
-      } else {
-        if (!stack.isEmpty()) stack.pop();
-        while (j + 1 < input.length() && input.charAt(j) == input.charAt(j + 1)) {
-          j++;
+    for (int i = 1; i < input.length(); i++) {
+      if (stack.isEmpty()) stack.push(input.charAt(i));
+      else {
+        if (stack.peek() != input.charAt(i)) {
+          stack.push(input.charAt(i));
+        }
+        else {
+          stack.pop();
+          while (i + 1 < input.length() && input.charAt(i) == input.charAt(i + 1)) {
+            i++;
+          }
         }
       }
     }
