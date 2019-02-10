@@ -1,0 +1,29 @@
+class Solution {
+    //Time: O(n + t), Space: O(1)
+    // name length n, typed length t
+    public boolean isLongPressedName(String name, String typed) {
+        int j = 0;
+        for (int i = 0; i < name.length(); i++) {
+            if (j < typed.length() && name.charAt(i) == typed.charAt(j)) {
+                //This is key, to count the occurence of name.charAt(i),typed.charAt(j)
+                int iN = 0, jN = 0;
+                while (j + 1 < typed.length() && 
+                       typed.charAt(j) == typed.charAt(j + 1)) {
+                    j++;
+                    jN++;
+                }
+                while (i + 1 < name.length() &&
+                        name.charAt(i) == name.charAt(i + 1)) {
+                        i++;
+                        iN++;
+                    }
+                //This is key, only when typed.charAt(j) occurs more, it works
+                if (iN > jN) return false;
+            } else {
+                return false;
+            }
+            j++;
+        }
+        return true;
+    }
+}
