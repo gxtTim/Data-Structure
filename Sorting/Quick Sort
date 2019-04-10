@@ -1,0 +1,42 @@
+public class Solution {
+  // Time: O(n * logn), Space: O(logn)
+  public int[] quickSort(int[] array) {
+    // Edge case
+    if (array == null || array.length <= 1) return array;
+    quickSort(array, 0, array.length - 1);
+    return array;
+  }
+  private void quickSort(int[] array, int left, int right) {
+    // Base case
+    if (left >= right) return;
+    int pos = partition(array, left, right);
+    // Recursion: total logn stacks
+    quickSort(array, left, pos - 1);
+    quickSort(array, pos + 1, right);
+  }
+  private int partition(int[] array, int left, int right) {
+    Random rand = new Random();
+    // Random select a pivot position
+    int pivot = left + rand.nextInt(right - left);
+    // Swap the pivot to the most right position
+    swap(array, pivot, right);
+    // Initialize 2 pointers
+    int i = left, j = right - 1;
+    // Each loop takes O(1) time, total logn stacks (binary search)
+    while (i <= j) {
+      if (array[i] <= array[right]) i++; // Reminder: pivot has been swapped to right
+      else {
+        swap(array, i, j);
+        j--;
+      }
+    }
+    // Put pivot back to the array
+    swap(array, i, right);
+    return i;
+  }
+  private void swap(int[] array, int a, int b) {
+    int tmp = array[a];
+    array[a] = array[b];
+    array[b] = tmp;
+  }
+}
