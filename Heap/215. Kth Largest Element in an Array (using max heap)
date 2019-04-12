@@ -1,5 +1,5 @@
 class Solution {
-    //Time: O(nlogn), Space: O(k)
+    //Time: O(n * logn), Space: O(k)
     public int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0) return 0;
         Queue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
