@@ -1,0 +1,16 @@
+class Solution {
+    //Time: O(n * logn), Space: O(k)
+    public int findKthLargest(int[] nums, int k) {
+        if (nums == null || nums.length == 0) return 0;
+        Queue<Integer> minHeap = new PriorityQueue<>();
+        // O(N * logN)
+        for (int num : nums) {
+            minHeap.offer(num);
+        }
+        // O(logN * (N - K))
+        for (int i = 0; i < nums.length - k; i++) {
+            minHeap.poll();
+        }
+        return minHeap.poll();
+    }
+}
