@@ -1,0 +1,58 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> neighbors;
+
+    public Node() {}
+
+    public Node(int _val,List<Node> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+*/
+class Solution {
+    /*** BFS: 
+        Queue <Node> q = new LinkedList<>();
+		root.visited = true;
+		q.add(root);
+		
+		while (!q.isEmpty()) {
+			Node curr = q.poll();
+			curr.visited = true;
+			for (Node n : curr.children) {
+				if (n.visited == false) {
+					n.visited = true;
+					q.add(n);
+				}
+			}
+		}
+    ***/
+    // Time: O(|V| + |E|), Space: O(|V| + |E|)
+    public Node cloneGraph(Node node) {
+        if (node == null) {
+            return node;
+        }
+        // make a clone map <Representation, clone node>
+        Map<Node, Node> clone = new HashMap<>();
+        Queue<Node> q = new LinkedList<>();
+        
+        clone.put(node, new Node(node.val, new ArrayList<Node>()));
+        q.add(node);
+        
+        // start searching
+        while (!q.isEmpty()) {
+            Node curr = q.poll();
+            for (Node nei : curr.neighbors) {
+                // if the node has not been cloned
+                if (!clone.containsKey(nei)) {
+                    clone.put(nei, new Node(nei.val, new ArrayList<Node>()));
+                    q.add(nei);
+                }
+                clone.get(curr).neighbors.add(clone.get(nei));            
+            }
+        }
+        return clone.get(node);
+    }
+}
