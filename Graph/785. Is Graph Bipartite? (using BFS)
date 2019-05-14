@@ -20,7 +20,7 @@ class Solution {
         colors[node] = color;
         
         //Traverse the whole graph via BFS
-        //Key Factor: neighbors' color should always be 1 - colors[curr], which is the different color than the current node.
+        //Key: pass (1 - colors[curr]) as different color
         while (!q.isEmpty()) {
             int curr = q.poll();
             for (int n : graph[curr]) {
