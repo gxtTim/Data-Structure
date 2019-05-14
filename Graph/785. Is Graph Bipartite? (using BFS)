@@ -1,0 +1,38 @@
+class Solution {
+    //Time: O(V + E); Space: O(V)
+    public boolean isBipartite(int[][] graph) {
+        //Initialize an uncolored array, 0 means red, 1 means blue
+        int[] colors = new int[graph.length];
+        Arrays.fill(colors, -1);
+        
+        for (int i = 0; i < graph.length; i++) {
+            if (colors[i] == -1 && !validColor(graph, colors, 0, i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validColor(int[][] graph, int[] colors, int color, int node) {
+        
+        Queue<Integer> q = new LinkedList<>();
+        q.add(node);
+        colors[node] = color;
+        
+        //Traverse the whole graph via BFS
+        //Key Factor: neighbors' color should always be 1 - colors[curr], which is the different color than the current node.
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            for (int n : graph[curr]) {
+                //If it is not colored
+                if (colors[n] == -1) {
+                    colors[n] = 1 - colors[curr];
+                    q.add(n);   
+                } else if (colors[n] != 1 - colors[curr]) {
+                    return false;
+                }
+            }
+        }	
+        return true;
+    }
+}
