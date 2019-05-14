@@ -21,6 +21,7 @@ class Solution {
         colors[node] = color;
         //Traverse the whole graph via DFS
         for (int next : graph[node]) {
+            //Key: pass (1 - color) as different color
             if (!validColor(graph, colors, 1 - color, next)) {
                 return false;
             }
