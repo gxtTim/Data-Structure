@@ -15,7 +15,7 @@ class Node {
 };
 */
 // Time: O(n) for number of node in the linked list
-// Space: O(n) when copying the old node one by one
+// Space: O(n) for the dictionary
 class Solution {
     // Map contains old node for key and copyed node for value
     Map<Node, Node> visited = new HashMap<>();
