@@ -1,0 +1,59 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node next;
+    public Node random;
+
+    public Node() {}
+
+    public Node(int _val,Node _next,Node _random) {
+        val = _val;
+        next = _next;
+        random = _random;
+    }
+};
+*/
+// Time: O(n) have to traverse the linked list
+// Space: O(1) copy on the existing linked list
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) return head;
+        
+        // Copy the next point
+        Node weave = head;
+        while (weave != null) {
+            Node copy = new Node(weave.val, null, null);
+            copy.next = weave.next;
+            weave.next = copy;
+            weave = copy.next;           
+        }
+        
+        // Copy the random point
+        weave = head;
+        while (weave != null) {
+            if (weave.random != null) {
+                weave.next.random = weave.random.next;
+            } else {
+                weave.next.random = null;
+            }
+            weave = weave.next.next;            
+        }
+        
+        // Unweave
+        Node oldList = head;
+        Node newList = head.next;
+        Node copy = head.next;
+        while (oldList != null) {
+            oldList.next = oldList.next.next;
+            if (newList.next != null) {
+                newList.next = newList.next.next;
+            } else {
+                newList.next = null;
+            }
+            oldList = oldList.next;
+            newList = newList.next;
+        }
+        return copy;        
+    }
+}
