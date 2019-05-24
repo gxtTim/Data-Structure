@@ -1,0 +1,20 @@
+class Solution {
+    public boolean canJumpFromPosition(int position, int[] nums) {
+        //If it can jump to the end of the array, it means successful
+        if (position == nums.length - 1) {
+            return true;
+        }
+        // Take the larget move for each position
+        int furthestJump = Math.min(position + nums[position], nums.length - 1);
+        // Each position takes the max move
+        for (int nextPosition = furthestJump; nextPosition > position; nextPosition--) {
+            if (canJumpFromPosition(nextPosition, nums)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean canJump(int[] nums) {
+        return canJumpFromPosition(0, nums);
+    }
+}
