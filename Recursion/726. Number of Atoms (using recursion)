@@ -1,0 +1,62 @@
+//Time: O(n^2), Space: O(n)
+class Solution {
+    int i;
+    public String countOfAtoms(String formula) {
+        StringBuilder res = new StringBuilder();
+        i = 0;
+        Map<String, Integer> map = parse(formula);
+        for (String name : map.keySet()) {
+            res.append(name);
+            int count = map.get(name);
+            if (count > 1) {
+                res.append("" + count);
+            }
+        }
+        return new String(res);
+    }
+    // How to parse the input
+    private Map<String, Integer> parse(String formula) {
+        Map<String, Integer> map = new TreeMap<>();
+        while (i < formula.length() && formula.charAt(i) != ')') {
+            if (formula.charAt(i) == '(') {
+                i++;
+                for (Map.Entry<String, Integer> entry : parse(formula).entrySet()) {
+                    map.put(entry.getKey(),
+                              map.getOrDefault(entry.getKey(), 0) + entry.getValue());
+                }
+            } else {
+                int start = i++;
+                while (i < formula.length() && 
+                       Character.isLowerCase(formula.charAt(i))) {
+                    i++;
+                }
+                String name = formula.substring(start, i);
+                start = i;
+                while (i < formula.length() &&
+                       Character.isDigit(formula.charAt(i))) {
+                    i++;
+                }
+                int count = 0;
+                if (start < i) {
+                    count = Integer.parseInt(formula.substring(start, i)); 
+                } else {
+                    count = 1;
+                }
+                map.put(name, map.getOrDefault(name, 0) + count);
+            }
+        }
+        // Deal with number after ')'
+        int start = ++i;
+        while (i < formula.length() &&
+               Character.isDigit(formula.charAt(i))) {
+            i++;
+        }
+        if (start < i) {
+            int count = Integer.parseInt(formula.substring(start, i));
+            for (String key : map.keySet()) {
+                map.put(key, map.get(key) * count);
+            }
+        }
+        return map;
+    }
+}
