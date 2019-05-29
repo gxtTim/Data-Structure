@@ -1,0 +1,8 @@
+class Solution {
+    // Time: O(logn), Space: O(1)
+    public int climbStairs(int n) {
+        double fib = Math.pow((1 + Math.sqrt(5)) / 2, n + 1) - 
+                     Math.pow((1 - Math.sqrt(5)) / 2, n + 1);
+        return (int) (fib / Math.sqrt(5));
+    }
+}
