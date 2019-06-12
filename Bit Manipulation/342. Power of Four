@@ -1,0 +1,10 @@
+class Solution {
+    //Time: O(1), Space: O(1)
+    // 如果这个数是 4 的幂次方，那它必定也是 2 的幂次方
+    // 如果用一个 4 的幂次方数和 0x55555555 做与运算，得到的还是 4 的幂次方数。
+    public boolean isPowerOfFour(int num) {
+        return (num > 0) 
+            && ((num & (num - 1)) == 0) 
+            && ((num & 0x55555555) == num);
+    }
+}
