@@ -1,0 +1,32 @@
+class Solution {
+    //Time: O(n!), Space: (n!)
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        permuteUnique(nums, 0, res);
+        return res;
+    }
+    private void permuteUnique(int[] nums, int start, 
+                               List<List<Integer>> res) {
+        if (start >= nums.length) {
+            List<Integer> list = new ArrayList<>();
+            for (int num : nums) {
+                list.add(num);
+            }
+            res.add(list);
+        } else {
+            Set<Integer> added = new HashSet<>();
+            for (int i = start; i < nums.length; i++) {
+                if (added.add(nums[i])) {
+                    swap(nums, start, i);
+                    permuteUnique(nums, start + 1, res);
+                    swap(nums, start, i);
+                }
+            }
+        }
+    }
+    private void swap(int[] num, int i, int j) {
+        int tmp = num[i];
+        num[i] = num[j];
+        num[j] = tmp;
+    }
+}
