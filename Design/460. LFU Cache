@@ -1,0 +1,69 @@
+class LFUCache {
+    private Map<Integer, Integer> vals; //<cache key, cache value>
+    private Map<Integer, Integer> counts; //<cache key, how many times the key is used>
+    private Map<Integer, LinkedHashSet<Integer>> lists; //<how many times the key is used, set of keys that have the same counts>
+    private int capacity;
+    private int minCount;
+    
+    public LFUCache(int capacity) {
+        this.capacity = capacity;
+        minCount = 0;
+        vals = new HashMap<>();
+        counts = new HashMap<>();
+        lists = new HashMap<>();
+    }
+    
+    public int get(int key) {
+        if (!vals.containsKey(key)) {
+            return -1;
+        }
+        
+        // current count for the key
+        int curr = counts.get(key);
+        // remove current count and update minCount
+        LinkedHashSet<Integer> set = lists.get(curr);
+        set.remove(key);
+        if (set.size() == 0) {
+            lists.remove(curr);
+            if (curr == minCount) {
+                minCount = curr + 1;
+            }
+        } 
+        curr++;
+        counts.put(key, curr);
+        lists.computeIfAbsent(curr, k->new LinkedHashSet<>()).add(key);
+        
+        return vals.get(key);
+    }
+    
+    public void put(int key, int value) {
+        if (capacity == 0) {
+            return;
+        }
+        if (get(key) != -1) {
+            vals.put(key, value);
+            return;
+        }
+        if (vals.size() == capacity) {
+            LinkedHashSet<Integer> set = lists.get(minCount);
+            int delete = set.iterator().next();
+            vals.remove(delete);
+            counts.remove(delete);
+            set.remove(delete);
+            if (set.size() == 0) {
+                lists.remove(minCount);
+            }
+        }
+        vals.put(key, value);
+        counts.put(key, 1);
+        lists.computeIfAbsent(1, k->new LinkedHashSet<>()).add(key);
+        minCount = 1;
+    }
+}
+
+/**
+ * Your LFUCache object will be instantiated and called as such:
+ * LFUCache obj = new LFUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
