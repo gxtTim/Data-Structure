@@ -1,0 +1,17 @@
+class Solution {
+    //Time: O(n), Space: O(1)
+    //Need to check with interview if 128 ASCII characters are possible
+    public boolean canPermutePalindrome(String s) {
+        int[] table = new int[128];
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            table[s.charAt(i)]++;
+            if (table[s.charAt(i)] % 2 == 0) {
+                count--;
+            } else {
+                count++;
+            }
+        }
+        return count <= 1;
+    }
+}
