@@ -1,33 +1,37 @@
-class MyQueue {
-    private Deque<Integer> in = new LinkedList<>();
-    private Deque<Integer> out = new LinkedList<>();
-    
+class MyQueue {   
+    private Stack<Integer> in;
+    private Stack<Integer> out;
     /** Initialize your data structure here. */
     public MyQueue() {
-        
+        in = new Stack<>();
+        out = new Stack<>();
     }
-    
+        
+    //Time: O(1), Space: O(n)
     /** Push element x to the back of queue. */
     public void push(int x) {
-        in.offer(x);
+        in.push(x);
     }
     
+    //Time: Amortized O(1) when out is not empty, worst O(n) when out is empty
+    //Space: O(1)
     /** Removes the element from in front of queue and returns that element. */
     public int pop() {
-        while (!in.isEmpty()) {
-            out.offer(in.poll());
-        }
-        return out.poll();
+        peek();
+        return out.pop();
     }
     
     /** Get the front element. */
     public int peek() {
-        while (!in.isEmpty()) {
-            out.offer(in.poll());
-        }
+        if (out.isEmpty()) {
+            while (!in.isEmpty()) {
+                out.push(in.pop());
+            }
+        }   
         return out.peek();
     }
     
+    // Time: O(1), Space: O(1)
     /** Returns whether the queue is empty. */
     public boolean empty() {
         return in.isEmpty() && out.isEmpty();
