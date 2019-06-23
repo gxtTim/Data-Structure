@@ -1,0 +1,7 @@
+class Solution {
+    //Time: O(1), Space: O(1)
+    public int hammingDistance(int x, int y) {
+        //"corresponding bits are different" = XOR
+        return Integer.bitCount(x ^ y);
+    }
+}
