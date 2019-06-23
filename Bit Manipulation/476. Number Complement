@@ -1,0 +1,6 @@
+class Solution {
+    //Time: O(1), Space: O(1)
+    public int findComplement(int num) {
+        return num ^ ((Integer.highestOneBit(num) << 1) - 1);
+    }
+}
