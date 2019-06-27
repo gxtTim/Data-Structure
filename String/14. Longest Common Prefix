@@ -1,0 +1,16 @@
+class Solution {
+    // Time: O(n), Space: O(1)
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+        String res = strs[0];
+        for (int i = 0; i < strs.length; i++) {
+            // This method returns the index within this string of the first occurrence of the specified character or -1, if the character does not occur.
+            while (strs[i].indexOf(res) != 0) {
+                res = res.substring(0, res.length() - 1);
+            }
+        }
+        return res;
+    }
+}
