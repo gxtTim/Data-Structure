@@ -1,0 +1,40 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    // Time: O(n), Space: O(1)
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        // Find the middle of the list
+        ListNode slow = head, fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // Reverse the part after the middle point
+        ListNode prev = slow, curr = slow.next;
+        while (curr.next != null) {
+            ListNode next = curr.next;
+            curr.next = next.next;
+            next.next = prev.next;
+            prev.next = next;
+        }
+        // Reorder the list
+        slow = head;
+        fast = prev.next;
+        while (slow != prev) {
+            prev.next = fast.next;
+            fast.next = slow.next;
+            slow.next = fast;
+            slow = fast.next;
+            fast = prev.next;
+        }      
+    }
+}
