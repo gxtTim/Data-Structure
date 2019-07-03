@@ -1,0 +1,19 @@
+class Solution {
+    // Time: O(n), Space: O(1)
+    // https://stackoverflow.com/questions/20193083/pre-post-increment-operators-and-arrays (Explanation: array[i++])
+    public int compress(char[] chars) {
+        int res = 0, k = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (i + 1 == chars.length || chars[i + 1] != chars[i]) {
+                chars[res++] = chars[k];
+                if (i > k) {
+                    for (char c : ("" + (i - k + 1)).toCharArray()) {
+                        chars[res++] = c;
+                    }
+                } 
+                k = i + 1;
+            }
+        }
+        return res;
+    }
+}
