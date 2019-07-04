@@ -1,5 +1,5 @@
 class Solution {
-    // Time: O(nlog(n)), Space: O(n)
+    // Time: O(log(n)), Space: O(n)
     public double myPow(double x, int n) {
         if (n >= 0) {
             return pow(x, n);
