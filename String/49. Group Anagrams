@@ -1,0 +1,15 @@
+class Solution {
+    // Time:O(nk), Space: O(nk)
+    // n is length of strs, k is the max length of a string in strs
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            char[] ch = str.toCharArray();
+            Arrays.sort(ch);
+            String key = String.valueOf(ch); // Get the sum of anagrams
+            map.putIfAbsent(key, new ArrayList<>());
+            map.get(key).add(str);
+        }
+        return new ArrayList<>(map.values());
+    }
+}
