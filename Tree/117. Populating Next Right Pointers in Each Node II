@@ -1,0 +1,42 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+
+    public Node(int _val,Node _left,Node _right,Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+class Solution {
+    // Time: O(n), Space: O(1)
+    public Node connect(Node root) {
+        Node dummy = new Node(0);
+        Node prev = dummy, curr = root;
+        while (curr != null) {
+            if (curr.left != null) {
+                prev.next = curr.left;
+                prev = prev.next;
+            }
+            if (curr.right != null) {
+                prev.next = curr.right;
+                prev = prev.next;
+            }
+            curr = curr.next;
+            if (curr == null) {
+                prev = dummy;
+                curr = dummy.next;
+                dummy.next = null;
+            }
+        } 
+        return root;
+    }
+}
