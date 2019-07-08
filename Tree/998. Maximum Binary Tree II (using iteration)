@@ -1,0 +1,25 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    // Time: O(n), Space: O(1)
+    public TreeNode insertIntoMaxTree(TreeNode root, int val) {
+        TreeNode node = new TreeNode(val), curr = root;
+        if (root.val < val) {
+            node.left = root;
+            return node;
+        }
+        while (curr.right != null && curr.right.val > val) {
+            curr = curr.right;
+        }
+        node.left = curr.right;
+        curr.right = node;
+        return root;
+    }
+}
