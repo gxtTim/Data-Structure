@@ -15,6 +15,7 @@ class Solution {
         binaryTreePaths(res, root, sb);
         return res;
     }
+    
     private void binaryTreePaths(List<String> res, TreeNode root,
                                  StringBuilder sb) {
         if (root == null) {
