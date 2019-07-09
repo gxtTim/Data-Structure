@@ -1,0 +1,17 @@
+class Solution {
+    // Time: O(nlogA), Space: O(nlogA)
+    public int subarrayBitwiseORs(int[] A) {
+        Set<Integer> res = new HashSet<>(), pre = new HashSet<>();
+        for (int a : A) {
+            Set<Integer> curr = new HashSet<>();
+            curr.add(a);
+            for (int p : pre) {
+                curr.add(a | p);
+            }
+            curr.add(a);
+            pre = curr;
+            res.addAll(pre);
+        }
+        return res.size();
+    }
+}
