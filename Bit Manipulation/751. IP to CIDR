@@ -1,0 +1,45 @@
+class Solution {
+    // Time: O(n), Space: O(n)
+    public List<String> ipToCIDR(String ip, int n) {
+        int curr = toInteger(ip);
+        List<String> res = new ArrayList<>();
+        while (n > 0) {
+            int maxBits = Integer.numberOfTrailingZeros(curr);
+            int maxAmount = 1 << maxBits;
+            int bitVal = 1, count = 0;
+            while (bitVal < n && count < maxBits) {
+                bitVal <<= 1;
+                count++;
+            }
+            if (bitVal > n) {
+                bitVal >>= 1;
+                count--;
+            }
+            res.add(toString(curr, 32 - count));
+            n -= bitVal;
+            curr += bitVal;
+        }
+        return res;
+    }
+    private int toInteger(String ip) {
+        String[] s = ip.split("\\.");
+        int sum = 0;
+        for (int i = 0; i < s.length; i++) {
+            sum *= 256;
+            sum += Integer.parseInt(s[i]);
+        }
+        return sum;
+    }
+    private String toString(int num, int range) {
+        //convert every 8 into an integer
+        StringBuilder sb = new StringBuilder();
+        for (int i = 3; i >= 0; i--) {
+            sb.append(Integer.toString((num >> (i * 8)) & 255));
+            sb.append(".");
+        }
+        sb.setLength(sb.length() - 1);
+        sb.append("/");
+        sb.append(Integer.toString(range));
+        return sb.toString();
+    }
+}
