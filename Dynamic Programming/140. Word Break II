@@ -1,0 +1,28 @@
+class Solution {
+    // Time: O(^3), Space: O(n^3)
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        Map<String, List<String>> memo = new HashMap<>();
+        return dfs(memo, s, wordDict);
+    }
+    private List<String> dfs(Map<String, List<String>> memo,
+                             String s, List<String> wordDict) {
+        if (memo.containsKey(s)) {
+            return memo.get(s);
+        }
+        List<String> res = new ArrayList<>();
+        if (wordDict.contains(s)) {
+            res.add(s);
+        }
+        for (int i = 1; i <= s.length(); i++) {
+            String prefix = s.substring(0, i);
+            if (wordDict.contains(prefix)) {
+                String postString = s.substring(i, s.length());
+                for (String post : dfs(memo, postString, wordDict)) {
+                    res.add(prefix + " " + post);
+                }
+            }
+        }
+        memo.put(s, res);
+        return res;
+    }
+}
