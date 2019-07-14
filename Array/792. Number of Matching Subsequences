@@ -1,0 +1,39 @@
+class Solution {
+    // Time: O(S.length + words[i].length)
+    // Space: O(n)
+    public int numMatchingSubseq(String S, String[] words) {
+        int n = S.length();
+        // "only consists of lowercase letter"
+        int[][] pos = new int[n][26];
+        for (int i = 0; i < 26; i++) {
+            pos[n - 1][i] = -1;
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            pos[i][S.charAt(i) - 'a'] = i;
+            if (i == 0) {
+                break;
+            }
+            for (int j = 0; j < 26; j++) {
+                pos[i - 1][j] = pos[i][j];
+            }
+        }
+        int res = 0;
+        for (String word : words) {
+            if (isSubseq(word, pos)) {
+                res++;
+            }
+        }
+        return res;
+    }
+    private boolean isSubseq(String word, int[][] pos) {
+        int w = word.length(), p = pos.length;
+        int i, j;
+        for (i = 0, j = 0; i < w && j < p; i++, j++) {
+            j = pos[j][word.charAt(i) - 'a'];
+            if (j < 0) {
+                return false;
+            }
+        }
+        return i == w;
+    }
+}
