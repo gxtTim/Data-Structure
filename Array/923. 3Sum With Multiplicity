@@ -1,0 +1,27 @@
+class Solution {
+    // Time: O(n^2), Space: O(1)
+    public int threeSumMulti(int[] A, int target) {
+        long[] counter = new long[101];
+        for (int a : A) {
+            counter[a]++;
+        }
+        long res = 0;
+        for (int i = 0; i <= 100; i++) {
+            for (int j = i; j <= 100; j++) {
+                int k = target - i - j;
+                if (k > 100 || k < 0) {
+                    continue;
+                }
+                if(i == j && j == k) {
+                    res += counter[i] * (counter[i] - 1) *
+                           (counter[i] - 2) / 6;
+                } else if (i == j && j != k) {
+                    res += counter[i] * (counter[i] - 1) / 2 * counter[k];
+                } else if (j < k) {
+                    res += counter[i] * counter[j] * counter[k];
+                }
+            }
+        }
+        return (int) (res % (1e9 + 7));
+    }
+}
