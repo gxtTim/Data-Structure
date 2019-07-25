@@ -1,0 +1,21 @@
+class Solution {
+    // Time: O(n), Space: O(n)
+    public boolean isHappy(int n) {
+        Set<Integer> set = new HashSet<>();
+        int sum, remain;
+        while (set.add(n)) {
+            sum = 0;
+            while (n > 0) {
+                remain = n % 10;
+                sum += remain * remain;
+                n /= 10;
+            }   
+            if (sum == 1) {
+                return true;
+            } else {
+                n = sum;
+            }
+        }
+        return false;
+    }
+}
