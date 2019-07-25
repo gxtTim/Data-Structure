@@ -1,0 +1,22 @@
+class Solution {
+    // Time: O(n^2), Space: O(n)
+    public int countPrimes(int n) {
+        if (n < 3) {
+            return 0;
+        }
+        int res = n / 2;
+        boolean[] bool = new boolean[n];
+        for (int i = 3; i * i < n; i += 2) {
+            if (bool[i]) {
+                continue;
+            }
+            for (int j = i * i; j < n; j += i * 2) {
+                if (!bool[j]) {
+                    res--;
+                    bool[j] = true;
+                }
+            }
+        }
+        return res;
+    }
+}
