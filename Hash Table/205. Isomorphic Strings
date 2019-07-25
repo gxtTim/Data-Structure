@@ -1,0 +1,27 @@
+class Solution {
+    // Time: O(n), Space: O(n)
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        char[] arrS = s.toCharArray();
+        char[] arrT = t.toCharArray();
+        
+        char[] mapS = new char[256];
+        char[] mapT = new char[256];
+        
+        for (int i = 0; i < s.length(); i++) {
+            char chS = arrS[i];
+            char chT = arrT[i];
+            if (mapS[chS] == 0 && mapT[chT] == 0) {
+                mapS[chS] = chT;
+                mapT[chT] = chS;
+            } else {
+                if (mapS[chS] != chT && mapT[chT] != chS) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
