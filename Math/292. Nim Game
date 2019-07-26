@@ -1,0 +1,6 @@
+class Solution {
+    // Time, Space: O(1)
+    public boolean canWinNim(int n) {
+        return (n % 4 != 0);
+    }
+}
