@@ -1,0 +1,54 @@
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<>();
+        if (n <= 0) {
+            return res;
+        }
+        search(res, new ArrayList<>(), n);
+        return res;
+    }
+    private void search(List<List<String>> res, List<Integer> rows, int n) {
+        if (rows.size() == n) {
+            res.add(drawChessBoard(rows));
+            return;
+        }
+        for (int i = 0; i < n; i++) {
+            if (!isValid(rows, i)) {
+                continue;
+            }
+            rows.add(i);
+            search(res, rows, n);
+            rows.remove(rows.size() - 1);
+        }
+    }
+    private List<String> drawChessBoard(List<Integer> rows) {
+        List<String> chessBoard = new ArrayList<>();
+        for (int i = 0; i < rows.size(); i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < rows.size(); j++) {
+                if (j == rows.get(i)) {
+                    sb.append('Q');
+                } else {
+                    sb.append('.');
+                }
+            }
+            chessBoard.add(sb.toString());
+        }
+        return chessBoard;
+    }
+    private boolean isValid(List<Integer> rows, int row) {
+        int size = rows.size();
+        for (int i = 0; i < rows.size(); i++) {
+            if (rows.get(i) == row) {
+                return false;
+            }
+            if (i + rows.get(i) == size + row) {
+                return false;
+            }
+            if (i - rows.get(i) == size - row) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
