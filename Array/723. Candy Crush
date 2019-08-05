@@ -1,0 +1,43 @@
+class Solution {
+    // Time: O((rc)^2), Space: O(1)
+    public int[][] candyCrush(int[][] board) {
+        boolean toContinue = false;
+        int row = board.length, col = board[0].length;
+        for (int r = 0; r < row; r++) {
+            for (int c = 0; c + 2 < col; c++) {
+                int val = Math.abs(board[r][c]);
+                if (val != 0 && 
+                    val == Math.abs(board[r][c + 1]) &&
+                    val== Math.abs(board[r][c + 2])) {
+                    board[r][c] = board[r][c + 1] 
+                                = board[r][c + 2] = -val;
+                    toContinue = true;
+                }
+            }
+        }
+        for (int r = 0; r + 2 < row; r++) {
+            for (int c = 0; c < col; c++) {
+                int val = Math.abs(board[r][c]);
+                if (val != 0 && 
+                    val == Math.abs(board[r + 1][c]) &&
+                    val == Math.abs(board[r + 2][c])) {
+                    board[r][c] = board[r + 1][c] 
+                                = board[r + 2][c] = -val;
+                    toContinue = true;
+                }
+            }
+        }
+        for (int c = 0; c < col; c++) {
+            int i = row - 1;
+            for (int r = row - 1; r >= 0; r--) {
+                if (board[r][c] > 0) {
+                    board[i--][c] = board[r][c];
+                }
+            }
+            while (i >= 0) {
+                board[i--][c] = 0;
+            }
+        }
+        return toContinue? candyCrush(board) : board;
+    }
+}
