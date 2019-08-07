@@ -1,0 +1,58 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node next;
+    public Node random;
+
+    public Node() {}
+
+    public Node(int _val,Node _next,Node _random) {
+        val = _val;
+        next = _next;
+        random = _random;
+    }
+};
+*/
+class Solution {
+    // Time: O(n), Space: O(1)
+    public Node copyRandomList(Node head) {
+        // edge case
+        if (head == null) {
+            return head;
+        }
+        // clone the list
+        Node node = head;
+        while (node != null) {
+            Node cloneNode = new Node(node.val, null, null);
+            cloneNode.next = node.next;
+            node.next = cloneNode;
+            node = cloneNode.next;
+        }
+        // assign the random pointer
+        node = head;
+        while (node != null) {
+            if (node.random != null) {
+                node.next.random = node.random.next;
+            } else {
+                node.next.random = null;
+            }
+            node = node.next.next;
+        }
+        // unweave the list
+        Node oldNode = head;
+        Node newNode = head.next;
+        Node copy = head.next;
+        while (oldNode != null) {
+            oldNode.next = oldNode.next.next;
+            if (newNode.next != null) {
+                newNode.next = newNode.next.next;
+            } else {
+                newNode.next = null;
+            }
+            oldNode = oldNode.next;
+            newNode = newNode.next;
+        }
+        return copy;
+    }
+}
