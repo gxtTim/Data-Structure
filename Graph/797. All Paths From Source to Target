@@ -1,0 +1,24 @@
+class Solution {
+    // Time: O(2^n * n^2), Space: O(2^n)
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        path.add(0);
+        dfs(graph, res, path, 0);
+        return res;
+    }
+    // We have total O(2^n) paths, so total time: O(2^n * n^2)
+    private void dfs(int[][] graph, List<List<Integer>> res,
+                     List<Integer> path, int node) {
+        if (node == graph.length - 1) {
+            res.add(new ArrayList<>(path));
+        }
+        // N nodes, time: O(n^2)
+        for (int next : graph[node]) {
+            // Time: O(n)
+            path.add(next);
+            dfs(graph, res, path, next);
+            path.remove(path.size() - 1);
+        }
+    }
+}
