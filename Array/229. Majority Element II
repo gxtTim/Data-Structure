@@ -1,0 +1,39 @@
+class Solution {
+    // Time: O(n), Space: O(1)
+    public List<Integer> majorityElement(int[] nums) {
+        Integer a = null, b = null;
+        int aCnt = 0, bCnt = 0;
+        for (int num : nums) {
+            if (a != null && a == num) {
+                aCnt++;
+            } else if (b != null && b == num) {
+                bCnt++;
+            } else if (aCnt == 0) {
+                a = num;
+                aCnt = 1;
+            } else if (bCnt == 0) {
+                b = num;
+                bCnt = 1;
+            } else {
+                aCnt--;
+                bCnt--;
+            }
+        }
+        aCnt = bCnt = 0;
+        for (int num : nums) {
+            if (a == num) {
+                aCnt++;
+            } else if (b == num) {
+                bCnt++;
+            }
+        }
+        List<Integer> res = new ArrayList<>();
+        if (aCnt > nums.length / 3) {
+            res.add(a);
+        }
+        if (bCnt > nums.length / 3) {
+            res.add(b);
+        }
+        return res;
+    }
+}
