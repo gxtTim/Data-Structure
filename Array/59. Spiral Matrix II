@@ -5,30 +5,33 @@ class Solution {
         if (n == 0) {
             return matrix;
         }
-        int rowBeg = 0, rowEnd = n - 1;
-        int colBeg = 0, colEnd = n - 1;
-        int num = 1;
-        while (rowBeg <= rowEnd && colBeg <= colEnd) {
-            for (int i = colBeg; i <= colEnd; i++) {
-                matrix[rowBeg][i] = num++;
+        int rowStart = 0, rowEnd = n - 1;
+        int colStart = 0, colEnd = n - 1;
+        int number = 1;
+        while (rowStart <= rowEnd && colStart <= colEnd) {
+            for (int i = colStart; i <= colEnd; i++) {
+                matrix[rowStart][i] = number++;
             }
-            rowBeg++;
-            for (int i = rowBeg; i <= rowEnd; i++) {
-                matrix[i][colEnd] = num++; 
+            rowStart++;
+            
+            for (int i = rowStart; i <= rowEnd; i++) {
+                matrix[i][colEnd] = number++;
             }
             colEnd--;
-            for (int i = colEnd; i >= colBeg; i--) {
-                if (rowBeg <= rowEnd) {
-                    matrix[rowEnd][i] = num++;
-                }      
+            
+            if (rowStart > rowEnd || colStart > colEnd) {
+                break;
+            }
+            
+            for (int i = colEnd; i >= colStart; i--) {
+                matrix[rowEnd][i] = number++;
             }
             rowEnd--;
-            for (int i = rowEnd; i >= rowBeg; i--) {
-                if (colBeg <= colEnd) {
-                    matrix[i][colBeg] = num++;    
-                }                
+            
+            for (int i = rowEnd; i >= rowStart; i--) {
+                matrix[i][colStart] = number++;
             }
-            colBeg++;
+            colStart++;
         }
         return matrix;
     }
